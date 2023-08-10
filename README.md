@@ -56,7 +56,7 @@ to save more time and design efforts :)
 1. Sign in on **Zalter Dashboard** (https://dashboard.zalter.com) and create your **Zalter project**.
 
 2. Open your project settings and activate **Email Magic Link** authentication.
-This authentication method requires `redirect URIs` setup, so while in development you need to add `http://localhost:3000/sign-in/confirm`.
+This authentication method requires `redirect URIs` setup, so while in development you need to add `http://localhost:3000/login/confirm`.
 For production replace `localhost:3000` with your own domain.
 
 3. Copy `.env.example` file and rename it to `.env`
@@ -104,7 +104,7 @@ material-kit-react
 		├── products.js
 		├── register.js
 		└── settings.js
-		└── sign-in
+		└── login
 			├── confirm.js
 			└── index.js
 ```

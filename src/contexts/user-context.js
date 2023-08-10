@@ -1,11 +1,13 @@
 import { create } from 'zustand'
 
 const useUserStore = create((set) => ({
-    id: '',
-    username: '',
+    id: null,
+    username: null,
     servers: [],
-    image: '',
-    rank: '',
+    image: null,
+    rank: null,
+    lastFetched: null,
+
     setUsername: (username) => set({ username }),
     setServers: (servers) => set({ servers }),
     setImage: (image) => set({ image }),
@@ -13,6 +15,19 @@ const useUserStore = create((set) => ({
     setId: (id) => set({ id }),
     fetchUser: async (auth_token) => {
         try {
+
+            
+            if (!auth_token) {
+                return { user: null, error: 'No auth token provided' };
+            }
+
+            if (Date.now() - useUserStore.getState().lastFetched < 1000 * 60 * 1) {
+                console.log("Returning cached user");
+                return { user: useUserStore.getState(), error: null };
+            }
+
+            console.log("Fetching user");
+
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/info?auth_token=${auth_token}`, {
                 method: 'GET',
             }).catch(err => {
@@ -30,7 +45,8 @@ const useUserStore = create((set) => ({
                 username: user.username,
                 servers: user.servers,
                 image: user.image,
-                rank: user.rank
+                rank: user.rank,
+                lastFetched: Date.now()
             });
 
             return { user, error: null };

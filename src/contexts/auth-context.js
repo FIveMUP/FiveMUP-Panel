@@ -25,15 +25,21 @@ const useAuthStore = create((set) => ({
     }
   },
 
-  signIn: (user) => set({
-    isAuthenticated: true,
-    user
-  }),
+  signIn: (user) => {
+    localStorage.setItem('token', user.token);
+    set({
+      isAuthenticated: true,
+      user
+    })
+  },
 
-  signOut: () => set({
-    isAuthenticated: false,
-    user: null
-  })
+  signOut: () => {
+    localStorage.removeItem('token');
+    set({
+      isAuthenticated: false,
+      user: null
+    })
+  }
 }));
 
 export default useAuthStore;

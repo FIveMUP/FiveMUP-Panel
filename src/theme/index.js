@@ -152,12 +152,12 @@ export const theme = createTheme({
       disabled: 'rgba(55, 65, 81, 0.26)'
     },
     background: {
-      default: '#F9FAFC',
-      paper: '#FFFFFF'
+      default: 'rgba(22,25,35,0.80)',
+      paper: 'rgba(22,25,35,0.80)'
     },
-    divider: '#E6E8F0',
+    divider: '#4B5563',
     primary: {
-      main: '#5048E5',
+      main: 'rgba(244, 75, 112)',
       light: '#828DF8',
       dark: '#3832A0',
       contrastText: '#FFFFFF'
@@ -193,8 +193,8 @@ export const theme = createTheme({
       contrastText: '#FFFFFF'
     },
     text: {
-      primary: '#121828',
-      secondary: '#65748B',
+      primary: '#F3F4F6',
+      secondary: '#E5E7EB',
       disabled: 'rgba(55, 65, 81, 0.48)'
     }
   },

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
-import { Box, Button, Divider, Drawer, Typography, useMediaQuery } from '@mui/material';
+import { Box, Button, Divider, Drawer, Icon, Typography, useMediaQuery } from '@mui/material';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { ChartBar as ChartBarIcon } from '../icons/chart-bar';
 import { Cog as CogIcon } from '../icons/cog';
@@ -15,6 +15,8 @@ import { Users as UsersIcon } from '../icons/users';
 import { XCircle as XCircleIcon } from '../icons/x-circle';
 import { Logo } from './logo';
 import { NavItem } from './nav-item';
+import { borderLeft } from '@mui/system';
+import { Image } from '@mui/icons-material';
 
 const items = [
   {
@@ -85,22 +87,46 @@ export const DashboardSidebar = (props) => {
     <>
       <Box
         sx={{
+          backgroundImage: 'url(/static/images/logo.gif)',
+          backgroundPosition: 'center',
+          height: '100%',
+          position: 'absolute',
+          width: '100%',
+          zIndex: -1
+        }}
+      />
+      <Box
+        sx={{
           display: 'flex',
           flexDirection: 'column',
-          height: '100%'
+          height: '100%',
+          backgroundColor: 'rgba(22,25,35, 0.9)',
+          backdropFilter: 'blur(20px)',
         }}
       >
         <div>
-          <Box sx={{ p: 3 }}>
+          <Box sx={{ p: 3,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+           }}>
             <NextLink
               href="/"
               passHref
             >
               <a>
-                <Logo
+                <Box 
                   sx={{
-                    height: 42,
-                    width: 42
+                    backgroundImage: 'url(/static/images/logo.gif)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: 55,
+                    width: 55,
+                    borderRadius: 1,
+                    backgroundPosition: 'center',
+                    backgroundSize: 'cover',
+                    overflow: 'hidden'
                   }}
                 />
               </a>
@@ -124,15 +150,13 @@ export const DashboardSidebar = (props) => {
                   color="inherit"
                   variant="subtitle1"
                 >
-                  Acme Inc
+                  FiveMUP - Software
                 </Typography>
                 <Typography
                   color="neutral.400"
                   variant="body2"
                 >
-                  Your tier
-                  {' '}
-                  : Premium
+                  Your plan: Customer
                 </Typography>
               </div>
               <SelectorIcon
@@ -162,55 +186,16 @@ export const DashboardSidebar = (props) => {
           ))}
         </Box>
         <Divider sx={{ borderColor: '#2D3748' }} />
-        <Box
-          sx={{
-            px: 2,
-            py: 3
-          }}
-        >
+        {/* Add FiveMUP Copyright 2023 */}
+        <Box sx={{ p: 1 }}>
           <Typography
-            color="neutral.100"
-            variant="subtitle2"
-          >
-            Need more features?
-          </Typography>
-          <Typography
-            color="neutral.500"
+            color="neutral.400"
             variant="body2"
-          >
-            Check out our Pro solution template.
+            // center
+            align='center'
+          > 
+            FiveMUP - Web Panel &copy; 2023
           </Typography>
-          <Box
-            sx={{
-              display: 'flex',
-              mt: 2,
-              mx: 'auto',
-              width: '160px',
-              '& img': {
-                width: '100%'
-              }
-            }}
-          >
-            <img
-              alt="Go to pro"
-              src="/static/images/sidebar_pro.png"
-            />
-          </Box>
-          <NextLink
-            href="https://material-kit-pro-react.devias.io/"
-            passHref
-          >
-            <Button
-              color="secondary"
-              component="a"
-              endIcon={(<OpenInNewIcon />)}
-              fullWidth
-              sx={{ mt: 2 }}
-              variant="contained"
-            >
-              Pro Live Preview
-            </Button>
-          </NextLink>
         </Box>
       </Box>
     </>
@@ -225,7 +210,8 @@ export const DashboardSidebar = (props) => {
           sx: {
             backgroundColor: 'neutral.900',
             color: '#FFFFFF',
-            width: 280
+            width: 280,
+            borderRight: '1px solid #2D3748',
           }
         }}
         variant="permanent"

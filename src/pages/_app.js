@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { CacheProvider } from '@emotion/react';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { CssBaseline } from '@mui/material';
+import { Box, CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import { createEmotionCache } from '../utils/create-emotion-cache';
 import { registerChartJs } from '../utils/register-chart-js';
@@ -38,7 +38,7 @@ const App = (props) => {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           {
-            isLoading ? <></> : <Component {...pageProps} />
+            isLoading ? <></> : getLayout(<Component {...pageProps} />)
           }
         </ThemeProvider>
       </LocalizationProvider>

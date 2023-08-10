@@ -6,20 +6,20 @@ import * as Yup from 'yup';
 import { Box, Button, Grid, Tab, Tabs, TextField, Typography } from '@mui/material';
 import { auth, ENABLE_AUTH } from '../../lib/auth';
 import { Logo } from '../../components/logo';
-import useAuthStore, { useAuthContext } from '../../contexts/auth-context';
+import useAuthStore from '../../contexts/auth-context';
 import { useRouter } from 'next/router';
 
 const Page = () => {
   const [tab, setTab] = useState('email');
   const [emailSent, setEmailSent] = useState(false);
-  const { signIn, user } = useAuthStore();
+  const { signIn, isAuthenticate } = useAuthStore();
   const router = useRouter()
 
   console.log('loaded')
   
   useEffect(() => {
     if (user?.token?.length > 0) {
-      router.replace('/'); // redirige al usuario a la página de inicio si ya está autenticado
+      router.replace('/');
     }
   }, [user, router]);
 
@@ -313,7 +313,7 @@ const Page = () => {
               </Typography>
               <img
                 alt=""
-                src="/static/images/sign-in-illustration.svg"
+                src="/static/images/login-illustration.svg"
               />
             </Box>
           </Grid>
