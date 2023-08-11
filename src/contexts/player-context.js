@@ -16,6 +16,14 @@ const usePlayerStore = create((set) => ({
         }
         set({ pendingServerPlayerUpdates })
     },
+    removePendingServerPlayerUpdate: (serverId) => {
+        const pendingServerPlayerUpdates = usePlayerStore.getState().pendingServerPlayerUpdates
+        const index = pendingServerPlayerUpdates.findIndex(pendingServerPlayerUpdate => pendingServerPlayerUpdate.serverId === serverId)
+        if (index !== -1) {
+            pendingServerPlayerUpdates.splice(index, 1)
+        }
+        set({ pendingServerPlayerUpdates })
+    },
     setPlayers: (players) => set({ players }),
     setUsedPlayers: (usedPlayers) => set({ usedPlayers }),
     fetchPlayers: async (auth_token) => {

@@ -13,12 +13,14 @@ import { Download as DownloadIcon } from '../../icons/download';
 import usePlayerStore from '../../contexts/player-context';
 import { useEffect } from 'react';
 import { Save } from '@mui/icons-material';
+import { Router, useRouter } from 'next/router';
 
 export const CustomerListToolbar = (props) => {
 
   const { auth_token } = props
+  const router = useRouter()
 
-  const { players, usedPlayers, fetchPlayers, pendingServerPlayerUpdates } = usePlayerStore()
+  const { players, usedPlayers, fetchPlayers, pendingServerPlayerUpdates, removePendingServerPlayerUpdate } = usePlayerStore()
 
   useEffect(() => {
     const _fetchPlayers = async () => {
@@ -27,36 +29,42 @@ export const CustomerListToolbar = (props) => {
     _fetchPlayers()
   }, [auth_token, fetchPlayers])
 
-  const saveChanges = () => {
+  const saveChanges = async () => {
     if (pendingServerPlayerUpdates.length === 0) {
       return window.alert('No changes to save')
     }
 
-    pendingServerPlayerUpdates.forEach(async ({ serverId, playerAmount }) => {
-      console.log(playerAmount)
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/server/setPlayers?auth_token=${auth_token}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          serverId,
-          playerAmount: parseInt(playerAmount)
-        })
-      }).catch(err => {
-        console.log(err)
-      })
+    for (const { serverId, playerAmount } of pendingServerPlayerUpdates) {
+      try {
+        console.log(`Saving ${playerAmount} players for server ${serverId}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/server/setPlayers?auth_token=${auth_token}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            serverId,
+            playerAmount: parseInt(playerAmount)
+          })
+        });
 
-      const { message } = await response.json()
+        const { message } = await response.json();
 
-      if (!response.ok) {
-        window.alert(`Error: ${message} for server ${serverId}`)
+        if (!response.ok) {
+          window.alert(`Error: ${message} for server ${serverId}`);
+        }
+
+        console.log(`Saved ${playerAmount} players for server ${serverId}`);
+
+        await new Promise(resolve => setTimeout(resolve, 500));
+      } catch (err) {
+        console.log(err);
       }
+    }
+    router.reload()
 
-      console.log(message)
-    })
   }
-    
+
 
   return (<Box {...props}>
     <Box
@@ -73,7 +81,7 @@ export const CustomerListToolbar = (props) => {
         variant="h4"
       >
         Available Players: {players.length - usedPlayers}
-        
+
       </Typography>
       <Box sx={{ m: 1 }}>
         <Button

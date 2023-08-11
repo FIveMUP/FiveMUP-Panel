@@ -45,7 +45,6 @@ const Page = () => {
         py: 8
       }}
     >
-      <h1>Repo Data: {JSON.stringify(pendingServerPlayerUpdates)}</h1>
       <Container maxWidth={false}>
         <CustomerListToolbar auth_token={user.token} />
         <Box sx={{ mt: 3 }}>
