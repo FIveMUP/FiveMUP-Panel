@@ -17,6 +17,10 @@ import { Logo } from './logo';
 import { NavItem } from './nav-item';
 import { borderLeft } from '@mui/system';
 import { Image } from '@mui/icons-material';
+import { Storage } from '@mui/icons-material';
+import { ConnectWithoutContact } from '@mui/icons-material';
+import { SettingsAccessibility } from '@mui/icons-material';
+import { SettingsApplications } from '@mui/icons-material';
 
 const items = [
   {
@@ -25,18 +29,18 @@ const items = [
     title: 'Dashboard'
   },
   {
-    href: '/customers',
-    icon: (<UsersIcon fontSize="small" />),
-    title: 'Customers'
+    href: '/servers',
+    icon: (<Storage fontSize="small" />),
+    title: 'My Servers'
   },
   {
-    href: '/products',
-    icon: (<ShoppingBagIcon fontSize="small" />),
-    title: 'Products'
+    href: '/players',
+    icon: (<ConnectWithoutContact fontSize="small" />),
+    title: 'Players'
   },
   {
     href: '/account',
-    icon: (<UserIcon fontSize="small" />),
+    icon: (<SettingsAccessibility fontSize="small" />),
     title: 'Account'
   },
   {
@@ -44,21 +48,6 @@ const items = [
     icon: (<CogIcon fontSize="small" />),
     title: 'Settings'
   },
-  {
-    href: '/login',
-    icon: (<LockIcon fontSize="small" />),
-    title: 'Login'
-  },
-  {
-    href: '/register',
-    icon: (<UserAddIcon fontSize="small" />),
-    title: 'Register'
-  },
-  {
-    href: '/404',
-    icon: (<XCircleIcon fontSize="small" />),
-    title: 'Error'
-  }
 ];
 
 export const DashboardSidebar = (props) => {

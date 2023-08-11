@@ -13,6 +13,10 @@ import { theme } from '../theme';
 registerChartJs();
 
 const clientSideEmotionCache = createEmotionCache();
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
 
 const App = (props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
@@ -21,28 +25,33 @@ const App = (props) => {
 
   useEffect(() => {
     initialize();
-  }, []);
+  }, [initialize]);
+
+
+  const queryClient = new QueryClient()
 
   return (
-    <CacheProvider value={emotionCache}>
-      <Head>
-        <title>
-          Material Kit Pro
-        </title>
-        <meta
-          name="viewport"
-          content="initial-scale=1, width=device-width"
-        />
-      </Head>
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          {
-            isLoading ? <></> : getLayout(<Component {...pageProps} />)
-          }
-        </ThemeProvider>
-      </LocalizationProvider>
-    </CacheProvider>
+    <QueryClientProvider client={queryClient}>
+      <CacheProvider value={emotionCache}>
+        <Head>
+          <title>
+            Material Kit Pro
+          </title>
+          <meta
+            name="viewport"
+            content="initial-scale=1, width=device-width"
+          />
+        </Head>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            {
+              isLoading ? <></> : getLayout(<Component {...pageProps} />)
+            }
+          </ThemeProvider>
+        </LocalizationProvider>
+      </CacheProvider>
+    </QueryClientProvider>
   );
 };
 

@@ -158,8 +158,9 @@ export const theme = createTheme({
     divider: '#4B5563',
     primary: {
       main: 'rgba(244, 75, 112)',
-      light: '#828DF8',
-      dark: '#3832A0',
+      light: 'rgba(245, 66, 105)',
+      // light: '#828DF8',
+      dark: 'rgba(244, 75, 112, 0.7)',
       contrastText: '#FFFFFF'
     },
     secondary: {
