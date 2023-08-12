@@ -7,9 +7,12 @@ const useUserStore = create((set) => ({
     image: null,
     rank: null,
     lastFetched: null,
+    skipCache: false,
 
+    skipNextCache: () => set({ skipCache: true }),
     setUsername: (username) => set({ username }),
     setServers: (servers) => set({ servers }),
+    delServer: (server_id) => set(state => ({ servers: state.servers.filter(server => server.id !== server_id) })),
     setImage: (image) => set({ image }),
     setRank: (rank) => set({ rank }),
     setId: (id) => set({ id }),
@@ -21,9 +24,13 @@ const useUserStore = create((set) => ({
                 return { user: null, error: 'No auth token provided' };
             }
 
-            if (Date.now() - useUserStore.getState().lastFetched < 1000 * 60 * 1) {
-                console.log("Returning cached user");
-                return { user: useUserStore.getState(), error: null };
+            if (useUserStore.getState().skipCache === false) {
+                if (Date.now() - useUserStore.getState().lastFetched < 1000 * 60 * 1) {
+                    console.log("Returning cached user");
+                    return { user: useUserStore.getState(), error: null };
+                }
+            } else if (useUserStore.getState().skipCache === true) {
+                useUserStore.getState().skipCache = false;
             }
 
             console.log("Fetching user");

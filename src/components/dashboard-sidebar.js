@@ -26,7 +26,7 @@ const items = [
   {
     href: '/',
     icon: (<ChartBarIcon fontSize="small" />),
-    title: 'Dashboard'
+    title: '🚧 Dashboard'
   },
   {
     href: '/servers',
@@ -36,17 +36,17 @@ const items = [
   {
     href: '/players',
     icon: (<ConnectWithoutContact fontSize="small" />),
-    title: 'Players'
+    title: '🚧 Players'
   },
   {
     href: '/account',
     icon: (<SettingsAccessibility fontSize="small" />),
-    title: 'Account'
+    title: '🚧 Account'
   },
   {
     href: '/settings',
     icon: (<CogIcon fontSize="small" />),
-    title: 'Settings'
+    title: '🚧 Settings'
   },
 ];
 

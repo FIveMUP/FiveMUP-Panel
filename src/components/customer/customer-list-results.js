@@ -20,14 +20,16 @@ import {
 import { getInitials } from '../../utils/get-initials';
 import { useQueries } from '@tanstack/react-query';
 import { borderBottom } from '@mui/system';
-import usePlayerStore from '../../contexts/player-context';
 import { GenerateInput } from './GenerateInput';
+import { useRouter } from 'next/router';
 
 export const ServerListResults = ({ servers_id, auth_token, ...rest }) => {
   const [selectedServerIds, setSelectedServerIds] = useState([]);
   const [limit, setLimit] = useState(1000);
   const [page, setPage] = useState(0);
   const [remainingPlayers, setRemainingPlayers] = useState(0);
+
+  const router = useRouter()
 
   const serverQueries = useQueries({
     queries: servers_id.map((server_id) => ({
@@ -52,6 +54,26 @@ export const ServerListResults = ({ servers_id, auth_token, ...rest }) => {
       servers.push(query.data.server)
     }
   })
+
+  const deleteServer = async (server_id) => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/server/delete?auth_token=${auth_token}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        server_id
+      })
+    })
+
+    const { message } = await res.json();
+
+    if (!res.ok) {
+      window.alert(`Error: ${message} for server ${server_id}`);
+    }
+
+    router.reload()
+  }
 
   return (
     <Card {...rest}>
@@ -98,10 +120,9 @@ export const ServerListResults = ({ servers_id, auth_token, ...rest }) => {
               }}
             >
               {servers.slice(0, limit).map((server) => (
-                <TableRow
+                server ? <TableRow
                   hover
                   key={server.id}
-                  selected={selectedServerIds.indexOf(server.id) !== -1}
                   sx={{
                     '&  td, & th': { border: 0 },
                     '& td': {
@@ -146,12 +167,13 @@ export const ServerListResults = ({ servers_id, auth_token, ...rest }) => {
                       variant="contained"
                       color="error"
                       size="small"
+                      onClick={() => deleteServer(server.id)}
                     >
                       Delete Server
                     </Button>
 
                   </TableCell>
-                </TableRow>
+                </TableRow> : null
               ))}
             </TableBody>
           </Table>
