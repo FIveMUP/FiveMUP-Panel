@@ -35,7 +35,7 @@ const App = (props) => {
       <CacheProvider value={emotionCache}>
         <Head>
           <title>
-            Material Kit Pro
+            FiveMUP
           </title>
           <meta
             name="viewport"

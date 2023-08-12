@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box } from '@mui/material';
+import { Backdrop, Box, Modal } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { AuthGuard } from './auth-guard';
 import { DashboardNavbar } from './dashboard-navbar';
@@ -29,7 +29,7 @@ export const DashboardLayout = (props) => {
             flexDirection: 'column',
             backgroundColor: 'rgba(22,25,35,0.80)',
             backdropFilter: 'blur(20px)',
-            width: '100%'
+            width: '100%',
           }}
         >
           {children}

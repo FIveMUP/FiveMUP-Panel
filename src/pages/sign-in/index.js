@@ -65,7 +65,7 @@ const Page = () => {
   return (
     <>
       <Head>
-        <title>Sign in | Material Kit</title>
+        <title>Sign in | FiveMUP</title>
       </Head>
       <Box
         component="main"

@@ -10,6 +10,7 @@ import { Google as GoogleIcon } from '../icons/google';
 import useAuthStore from '../contexts/auth-context';
 import { useEffect } from 'react';
 import { auth } from '../lib/auth';
+import { fi } from 'date-fns/locale';
 
 const Login = () => {
 
@@ -56,8 +57,37 @@ const Login = () => {
   return (
     <>
       <Head>
-        <title>Login | Material Kit</title>
+        <title>Login | FiveMUP</title>
       </Head>
+      <Box
+        sx={{
+          position: 'absolute',
+          backgroundColor: 'rgba(22,25,35,0.9)',
+          height: '100%',
+          width: '100%',
+          top: 0,
+          zIndex: -2,
+          backgroundImage: 'url(/static/images/logo.gif)',
+          backgroundPosition: 'center',
+          backgroundSize: 'cover',
+          filter: 'brightness(0.2)'
+        }}
+      />
+      <Box
+        sx={{
+          position: 'absolute',
+          backgroundColor: 'rgba(22,25,35,0.4)',
+          backdropFilter: 'blur(20px)',
+          justifyContent: 'center',
+          alignItems: 'center',
+          display: 'flex',
+          minHeight: '100px',
+          height: '100%',
+          width: '100%',
+          top: 0,
+          zIndex: -1
+        }}
+      />
       <Box
         component="main"
         sx={{
@@ -76,7 +106,7 @@ const Login = () => {
               component="a"
               startIcon={<ArrowBackIcon fontSize="small" />}
             >
-              Dashboard
+              Log In
             </Button>
           </NextLink>
 
@@ -137,17 +167,17 @@ const Login = () => {
               Don&apos;t have an account?
               {' '}
               <NextLink
-                href="/register"
+                href="/login"
               >
                 <Link
-                  to="/register"
+                  to="/login"
                   variant="subtitle2"
                   underline="hover"
                   sx={{
                     cursor: 'pointer'
                   }}
                 >
-                  Sign Up
+                  (Coming Soon)
                 </Link>
               </NextLink>
             </Typography>

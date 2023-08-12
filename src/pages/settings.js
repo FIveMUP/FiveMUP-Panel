@@ -11,9 +11,31 @@ const Page = () => {
   return (<>
     <Head>
       <title>
-        Settings | Material Kit
+        Settings | FiveMUP
       </title>
     </Head>
+    <Box
+      sx={{
+        position: 'absolute',
+        backgroundColor: 'rgba(22,25,35,0.9)',
+        backdropFilter: 'blur(20px)',
+        justifyContent: 'center',
+        alignItems: 'center',
+        display: 'flex',
+        minHeight: '100px',
+        height: '100%',
+        width: '100%',
+        top: 0,
+        zIndex: 99
+      }}
+    >
+      <Typography
+        color="white"
+        variant="h4"
+      >
+        🚧 Under construction 🚧
+      </Typography>
+    </Box>
     <Box
       component="main"
       sx={{

@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { Box, Container, Grid } from '@mui/material';
+import { Box, Container, Grid, Typography } from '@mui/material';
 import { Budget } from '../components/dashboard/budget';
 import { LatestOrders } from '../components/dashboard/latest-orders';
 import { LatestProducts } from '../components/dashboard/latest-products';
@@ -14,9 +14,31 @@ const Page = () => (
   <>
     <Head>
       <title>
-        Dashboard | Material Kit
+        Dashboard | FiveMUP
       </title>
     </Head>
+    <Box
+      sx={{
+        position: 'absolute',
+        backgroundColor: 'rgba(22,25,35,0.9)',
+        backdropFilter: 'blur(20px)',
+        justifyContent: 'center',
+        alignItems: 'center',
+        display: 'flex',
+        minHeight: '100px',
+        height: '100%',
+        width: '100%',
+        top: 0,
+        zIndex: 99
+      }}
+    >
+      <Typography
+        color="white"
+        variant="h4"
+      >
+        🚧 Under construction 🚧
+      </Typography>
+    </Box>
     <Box
       component="main"
       sx={{
@@ -64,42 +86,6 @@ const Page = () => (
             xs={12}
           >
             <TotalProfit sx={{ height: '100%' }} />
-          </Grid>
-          <Grid
-            item
-            lg={8}
-            md={12}
-            xl={9}
-            xs={12}
-          >
-            <Sales />
-          </Grid>
-          <Grid
-            item
-            lg={4}
-            md={6}
-            xl={3}
-            xs={12}
-          >
-            <TrafficByDevice sx={{ height: '100%' }} />
-          </Grid>
-          <Grid
-            item
-            lg={4}
-            md={6}
-            xl={3}
-            xs={12}
-          >
-            <LatestProducts sx={{ height: '100%' }} />
-          </Grid>
-          <Grid
-            item
-            lg={8}
-            md={12}
-            xl={9}
-            xs={12}
-          >
-            <LatestOrders />
           </Grid>
         </Grid>
       </Container>

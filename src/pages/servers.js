@@ -35,7 +35,7 @@ const Page = () => {
   return (<>
     <Head>
       <title>
-        Customers | Material Kit
+        Customers | FiveMUP
       </title>
     </Head>
     <Box

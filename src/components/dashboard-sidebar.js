@@ -175,7 +175,6 @@ export const DashboardSidebar = (props) => {
           ))}
         </Box>
         <Divider sx={{ borderColor: '#2D3748' }} />
-        {/* Add FiveMUP Copyright 2023 */}
         <Box sx={{ p: 1 }}>
           <Typography
             color="neutral.400"
