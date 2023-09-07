@@ -36,7 +36,7 @@ const items = [
   {
     href: '/players',
     icon: (<ConnectWithoutContact fontSize="small" />),
-    title: '🚧 Players'
+    title: 'Players'
   },
   {
     href: '/account',

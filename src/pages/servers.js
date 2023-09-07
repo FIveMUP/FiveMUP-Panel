@@ -14,7 +14,6 @@ const Page = () => {
 
   const { user, isAuthenticated } = useAuthStore()
   const { fetchUser, servers } = useUserStore()
-  const { pendingServerPlayerUpdates } = usePlayerStore()
 
   useEffect(() => {
     const _fetchUser = async () => {
@@ -31,7 +30,7 @@ const Page = () => {
   } else if (!servers) {
     return (<h1>Loading user data...</h1>)
   }
-
+  
   return (<>
     <Head>
       <title>
