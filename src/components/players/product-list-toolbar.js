@@ -12,9 +12,10 @@ import { Download as DownloadIcon } from "../../icons/download";
 import { Search as SearchIcon } from "../../icons/search";
 import { Upload as UploadIcon } from "../../icons/upload";
 import { Save } from "@mui/icons-material";
+import { useRouter } from "next/router";
 
-export const ProductListToolbar = ({ pendingChanges, setPendingChanges, currentFilter, setCurrentFilter, ...rest }) => {
-
+export const ProductListToolbar = ({ auth_token, pendingChanges, setPendingChanges, currentFilter, setCurrentFilter, ...rest }) => {
+  const router = useRouter();
   const handleSaveAll = async () => {
     console.log('Saving all changes');
     if (Object.values(pendingChanges).length === 0) {
@@ -23,32 +24,36 @@ export const ProductListToolbar = ({ pendingChanges, setPendingChanges, currentF
 
     for (const { id, name } of Object.values(pendingChanges)) {
       console.log(`Saving ${name} for player ${id}`);
-      // try {
-      //   console.log(`Saving ${playerAmount} players for server ${serverId}`);
-      //   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/server/setPlayers?auth_token=${auth_token}`, {
-      //     method: 'POST',
-      //     headers: {
-      //       'Content-Type': 'application/json'
-      //     },
-      //     body: JSON.stringify({
-      //       serverId,
-      //       playerAmount: parseInt(playerAmount)
-      //     })
-      //   });
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/players/setPlayerName?auth_token=${auth_token}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            playerId: id,
+            playerName: name
+          })
+        });
 
-      //   const { message } = await response.json();
+        const { message } = await response.json();
 
-      //   if (!response.ok) {
-      //     window.alert(`Error: ${message} for server ${serverId}`);
-      //   }
+        if (!response.ok) {
+          window.alert(`Error: ${message} for server ${serverId}`);
+        }
 
-      //   console.log(`Saved ${playerAmount} players for server ${serverId}`);
+        console.log(`Saved ${name} for player ${id} successfully`);
 
-      //   await new Promise(resolve => setTimeout(resolve, 100));
-      // } catch (err) {
-      //   console.log(err);
-      // }
+        
+        await new Promise(resolve => setTimeout(resolve, 25));
+      } catch (err) {
+        console.log(err);
+      }
     }
+
+    window.alert('All changes saved successfully');
+    setPendingChanges({});
+    router.reload();
   }
 
   return (<Box {...rest}>

@@ -71,6 +71,7 @@ const Page = () => {
       >
         <Container maxWidth={false}>
           <ProductListToolbar
+            auth_token={user?.token}
             pendingChanges={pendingChanges}
             setPendingChanges={setPendingChanges}
             currentFilter={currentFilter}
