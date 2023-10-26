@@ -21,6 +21,7 @@ import { Storage } from '@mui/icons-material';
 import { ConnectWithoutContact } from '@mui/icons-material';
 import { SettingsAccessibility } from '@mui/icons-material';
 import { SettingsApplications } from '@mui/icons-material';
+import { Download } from '@mui/icons-material';
 
 const items = [
   {
@@ -57,6 +58,10 @@ export const DashboardSidebar = (props) => {
     defaultMatches: true,
     noSsr: false
   });
+
+  const handleDownload = () => {
+    window.open('https://cdn.discordapp.com/attachments/963224851735257139/1160377484039172176/FiveMUP_Files.zip', '_blank');
+  }
 
   useEffect(
     () => {
@@ -173,6 +178,21 @@ export const DashboardSidebar = (props) => {
               title={item.title}
             />
           ))}
+        </Box>
+        <Divider sx={{ borderColor: '#2D3748' }} />
+        {/* Download Button */}
+        <Box sx={{ p: 2 }}>
+          <Button
+            color="primary"
+            fullWidth
+            size="large"
+            variant="contained"
+            onClick={handleDownload}
+            target="_blank"
+            startIcon={<Download />}
+          >
+            Download
+          </Button>
         </Box>
         <Divider sx={{ borderColor: '#2D3748' }} />
         <Box sx={{ p: 1 }}>
