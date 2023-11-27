@@ -31,7 +31,7 @@ class CustomDocument extends Document {
           />
           <link
             rel="icon"
-            href="/favfavicon.ico"
+            href="/favicon.ico"
           />
           <link
             rel="icon"
