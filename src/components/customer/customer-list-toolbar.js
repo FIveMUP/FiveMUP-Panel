@@ -28,7 +28,7 @@ export const CustomerListToolbar = (props) => {
   const router = useRouter()
   const { skipNextCache } = useUserStore()
 
-  const { players, usedPlayers, fetchPlayers, pendingServerPlayerUpdates, removePendingServerPlayerUpdate } = usePlayerStore()
+  const { players, usedPlayers, fetchPlayers, pendingServerPlayerUpdates } = usePlayerStore()
 
   useEffect(() => {
     const _fetchPlayers = async () => {

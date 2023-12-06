@@ -22,10 +22,14 @@ import { useQueries } from '@tanstack/react-query';
 import { borderBottom } from '@mui/system';
 import { GenerateInput } from './GenerateInput';
 import { useRouter } from 'next/router';
+import { Edit } from '@mui/icons-material';
+import { EditSchedulerModal } from './EditSchedulerModal';
 
 export const ServerListResults = ({ servers_id, auth_token, ...rest }) => {
   const [selectedServerIds, setSelectedServerIds] = useState([]);
   const [limit, setLimit] = useState(1000);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editingServer, setEditingServer] = useState(null);
   const [page, setPage] = useState(0);
   const [remainingPlayers, setRemainingPlayers] = useState(0);
 
@@ -79,6 +83,11 @@ export const ServerListResults = ({ servers_id, auth_token, ...rest }) => {
     <Card {...rest}>
       <PerfectScrollbar>
         <Box sx={{ minWidth: 100 }}>
+          <EditSchedulerModal 
+            open={modalOpen} 
+            editingServer={servers[0]}
+            handleClose={() => setModalOpen(!modalOpen)} 
+          />
           <Table
             sx={{
               backgroundColor: 'rgba(25, 21, 21, 0.1)',
@@ -97,6 +106,9 @@ export const ServerListResults = ({ servers_id, auth_token, ...rest }) => {
                   }
                 }}
               >
+                <TableCell>
+                  Scheduler
+                </TableCell>
                 <TableCell>
                   Name
                 </TableCell>
@@ -134,6 +146,32 @@ export const ServerListResults = ({ servers_id, auth_token, ...rest }) => {
                     }
                   }}
                 >
+                  <TableCell>
+                    <Button
+                      variant="contained"
+                      color="success"
+                      
+                      sx={{
+                        verticalAlign: 'middle',
+                        marginLeft: '5px',
+                        width: '5px',
+                      }}
+
+                      onClick={() => {
+                        setEditingServer(server)
+                        setModalOpen(!modalOpen)
+                      }}
+                    >
+                      <Edit
+                      fontSize='small'
+                        sx={{
+                          verticalAlign: 'middle',
+                        }}
+                      />
+                      
+                    </Button>
+                      
+                  </TableCell>
                   <TableCell>
                     <Box
                       sx={{
