@@ -1,8 +1,9 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Modal, Box, Typography, TextField, Button, Table, TableBody, TableCell, TableHead, TableRow, Autocomplete } from '@mui/material';
 import moment from 'moment';
 import 'moment-timezone';
 import useAuthStore from '../../contexts/auth-context';
+import usePlayerStore from '../../contexts/player-context';
 
 const style = {
   position: 'absolute',
@@ -23,17 +24,53 @@ export const EditSchedulerModal = ({ open, handleClose, editingServer }) => {
 
   const [schedules, setSchedules] = useState([]);
   const [time, setTime] = useState('');
+  const { players: customerPlayers, usedPlayers, fetchPlayers, pendingServerPlayerUpdates } = usePlayerStore()
   const [players, setPlayers] = useState('');
   const [timezone, setTimezone] = useState(moment.tz.guess());
 
   const timezones = moment.tz.names(); // Get list of timezones
 
+
+  useEffect(() => {
+    const _fetchPlayers = async () => {
+      await fetchPlayers(user.token)
+    }
+    _fetchPlayers()
+  }, [user.token, fetchPlayers])
+
   const getServerScheduler = async () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/server/getServerScheduler?auth_token=${user.token}&serverId=${editingServer.id}`)
     const data = await res.json()
-    console.log(data)
     setSchedules(data.scheduler)
   }
+
+  const handleTimeChange = (e) => {
+    setTime(e.target.value);
+  };
+
+  const handleTimeBlur = () => {
+    let formattedTime = formatTime(time);
+    setTime(formattedTime);
+  };
+
+  const formatTime = (value) => {
+    // Validar y formatear el valor a HH:MM
+    let parts = value.split(':');
+    let hours = parts[0];
+    let minutes = parts[1];
+
+    if (hours.length === 1) {
+      hours = '0' + hours;
+    }
+
+    if (!minutes || minutes.length === 0) {
+      minutes = '00';
+    } else if (minutes.length === 1) {
+      minutes = minutes + '0';
+    }
+
+    return `${hours}:${minutes}`;
+  };
 
   useMemo(() => {
     if (editingServer) {
@@ -44,7 +81,7 @@ export const EditSchedulerModal = ({ open, handleClose, editingServer }) => {
   const handleAddSchedule = () => {
     const newSchedule = { time, players: Number(players), timezone, serverId: editingServer.id };
     if (newSchedule.time && newSchedule.players) {
-      fetch('http://localhost:3001/api/user/server/setServerScheduler?auth_token=' + user.token, {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/server/setServerScheduler?auth_token=${user.token}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -89,14 +126,27 @@ export const EditSchedulerModal = ({ open, handleClose, editingServer }) => {
         <TextField
           label="Time (HH:MM)"
           value={time}
-          onChange={(e) => setTime(e.target.value)}
+          onChange={handleTimeChange}
+      onBlur={handleTimeBlur}
           margin="normal"
         />
         <TextField
           label="Players"
           type="number"
           value={players}
-          onChange={(e) => setPlayers(e.target.value)}
+          onChange={(e) => {
+            console.log(customerPlayers)
+            if (Number(e.target.value) < 0) return setPlayers(0)
+            if (e.target.value.length > 1 && e.target.value[0] === '0') {
+              setPlayers(e.target.value.slice(1))
+              return
+            }          
+            if (Number(e.target.value) > customerPlayers.length) {
+              setPlayers(customerPlayers.length)
+              return
+            }
+            setPlayers(e.target.value)
+          }}
           margin="normal"
         />
         <Autocomplete
@@ -147,6 +197,7 @@ export const EditSchedulerModal = ({ open, handleClose, editingServer }) => {
               <TableCell>Time</TableCell>
               <TableCell>Players</TableCell>
               <TableCell>Timezone</TableCell>
+              <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -155,6 +206,36 @@ export const EditSchedulerModal = ({ open, handleClose, editingServer }) => {
                 <TableCell>{schedule.time}</TableCell>
                 <TableCell>{schedule.players}</TableCell>
                 <TableCell>{schedule.timezone}</TableCell>
+                <TableCell>
+                  <Button
+                    variant="contained"
+                    color="error"
+                    onClick={() => {
+                      fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/server/deleteServerScheduler?auth_token=${user.token}`, {
+                        method: 'POST',
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                          time: schedule.time,
+                          players: schedule.players,
+                          timezone: schedule.timezone,
+                          serverId: editingServer.id,
+                        })
+                      })
+                        .then((response) => response.json())
+                        .then((data) => {
+                          console.log('Success:', data);
+                        })
+                        .catch((error) => {
+                          console.error('Error:', error);
+                        });
+                      setSchedules(schedules.filter((_, i) => i !== index));
+                    }}
+                  >
+                    Delete
+                  </Button>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

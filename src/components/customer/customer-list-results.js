@@ -85,7 +85,7 @@ export const ServerListResults = ({ servers_id, auth_token, ...rest }) => {
         <Box sx={{ minWidth: 100 }}>
           <EditSchedulerModal 
             open={modalOpen} 
-            editingServer={servers[0]}
+            editingServer={editingServer}
             handleClose={() => setModalOpen(!modalOpen)} 
           />
           <Table
