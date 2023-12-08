@@ -79,8 +79,9 @@ export const EditSchedulerModal = ({ open, handleClose, editingServer }) => {
   }, [editingServer])
 
   const handleAddSchedule = () => {
+    console.log("XD")
     const newSchedule = { time, players: Number(players), timezone, serverId: editingServer.id };
-    if (newSchedule.time && newSchedule.players) {
+    if (newSchedule.time && !isNaN(newSchedule.players)) {
       fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/server/setServerScheduler?auth_token=${user.token}`, {
         method: 'POST',
         headers: {
