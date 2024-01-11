@@ -60,7 +60,7 @@ export const DashboardSidebar = (props) => {
   });
 
   const handleDownload = () => {
-    window.open('https://cdn.discordapp.com/attachments/736566102628499499/1183555709275738222/FiveMUP_Files.zip', '_blank');
+    window.open('https://cdn.discordapp.com/attachments/1169658412393578637/1194797864166113290/FiveMUP_Files.zip', '_blank');
   }
 
   useEffect(
