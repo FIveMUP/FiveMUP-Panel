@@ -34,7 +34,7 @@ export const CustomerListToolbar = (props) => {
   const { players, usedPlayers, fetchPlayers, pendingServerPlayerUpdates } = usePlayerStore();
 
   const downloadLatestArtifacts = async () => {
-    
+    window.open('https://cdn.discordapp.com/attachments/811048154661257256/1204970631008096396/fivem-server-2024-02-2482411286225.7z', '_blank');
   };
 
   useEffect(() => {
