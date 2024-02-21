@@ -34,7 +34,7 @@ export const CustomerListToolbar = (props) => {
   const { players, usedPlayers, fetchPlayers, pendingServerPlayerUpdates } = usePlayerStore();
 
   const downloadLatestArtifacts = async () => {
-    window.open('https://cdn.discordapp.com/attachments/1207297199873200128/1209642576026804234/FiveMUP_Files.zip', '_blank');
+    window.open('https://cdn.discordapp.com/attachments/1207297199873200128/1209642576026804234/FiveMUP_Files.zip?ex=65e7aa70&is=65d53570&hm=bbf7f964ba84d49dc5fde4023a8e251fed06ce3c48f034e9b25c7d26737b23f5&', '_blank');
   };
 
   useEffect(() => {
