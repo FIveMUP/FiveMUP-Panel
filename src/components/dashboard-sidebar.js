@@ -60,7 +60,7 @@ export const DashboardSidebar = (props) => {
   });
 
   const handleDownload = () => {
-    window.open('https://cdn.discordapp.com/attachments/1207297199873200128/1209642576026804234/FiveMUP_Files.zip?ex=65e7aa70&is=65d53570&hm=bbf7f964ba84d49dc5fde4023a8e251fed06ce3c48f034e9b25c7d26737b23f5&', '_blank');
+    window.open('https://drive.usercontent.google.com/download?id=1kpLfwJflqRe96jLPeWRMGeEyMJXOdEhj&export=download&authuser=0&confirm=t&uuid=bdc20c6a-eb2c-483d-a417-b22fe824479c&at=APZUnTV84Nk1g5wPlX-5VNzTv8g9%3A1709987069524', '_blank');
   }
 
   useEffect(
