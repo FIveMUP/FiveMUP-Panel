@@ -34,7 +34,7 @@ export const CustomerListToolbar = (props) => {
   const { players, usedPlayers, fetchPlayers, pendingServerPlayerUpdates } = usePlayerStore();
 
   const downloadLatestArtifacts = async () => {
-    window.open('https://drive.usercontent.google.com/download?id=1kpLfwJflqRe96jLPeWRMGeEyMJXOdEhj&export=download&authuser=0&confirm=t&uuid=bdc20c6a-eb2c-483d-a417-b22fe824479c&at=APZUnTV84Nk1g5wPlX-5VNzTv8g9%3A1709987069524', '_blank');
+    window.open('https://drive.usercontent.google.com/download?id=1kpLfwJflqRe96jLPeWRMGeEyMJXOdEhj&export=download&authuser=0', '_blank');
   };
 
   useEffect(() => {
