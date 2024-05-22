@@ -60,7 +60,7 @@ export const DashboardSidebar = (props) => {
   });
 
   const handleDownload = () => {
-    window.open('https://drive.usercontent.google.com/download?id=1cQbQJ_GoWxvmNcQiQLRzecZsJRD2-eK4', '_blank');
+    window.open('https://drive.usercontent.google.com/download?id=1Z32TmJxxJwUpRGBKvNjgCLuWcKxIYLvP&export=download&authuser=0', '_blank');
   }
 
   useEffect(
