@@ -12,6 +12,28 @@ const Page = () => (
       </title>
     </Head>
     <Box
+      sx={{
+        position: 'absolute',
+        backgroundColor: 'rgba(22,25,35,0.9)',
+        backdropFilter: 'blur(20px)',
+        justifyContent: 'center',
+        alignItems: 'center',
+        display: 'flex',
+        minHeight: '100px',
+        height: '100%',
+        width: '100%',
+        top: 0,
+        zIndex: 99
+      }}
+    >
+      <Typography
+        color="white"
+        variant="h4"
+      >
+        🚧 Under construction 🚧
+      </Typography>
+    </Box>
+    <Box
       component="main"
       sx={{
         flexGrow: 1,
@@ -23,31 +45,29 @@ const Page = () => (
           sx={{ mb: 3 }}
           variant="h4"
         >
-          Store
+          Account
         </Typography>
-        <Container maxWidth="lg">
+        <Grid
+          container
+          spacing={3}
+        >
           <Grid
-            container
-            spacing={3}
+            item
+            lg={4}
+            md={6}
+            xs={12}
           >
-            <Grid
-              item
-              lg={4}
-              md={6}
-              xs={12}
-            >
-              <AccountProfile />
-            </Grid>
-            <Grid
-              item
-              lg={8}
-              md={6}
-              xs={12}
-            >
-              <AccountProfileDetails />
-            </Grid>
+            <AccountProfile />
           </Grid>
-        </Container>
+          <Grid
+            item
+            lg={8}
+            md={6}
+            xs={12}
+          >
+            <AccountProfileDetails />
+          </Grid>
+        </Grid>
       </Container>
     </Box>
   </>
