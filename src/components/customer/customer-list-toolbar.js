@@ -34,7 +34,7 @@ export const CustomerListToolbar = (props) => {
   const { players, usedPlayers, fetchPlayers, pendingServerPlayerUpdates } = usePlayerStore();
 
   const downloadLatestArtifacts = async () => {
-    window.open('https://drive.usercontent.google.com/download?id=1AVe_ym1Mgtld6D_T7QwDJ60C9hLgS6VY', '_blank');
+    window.open('https://drive.usercontent.google.com/download?id=1A7a6Ltp6bBd7vMDCj6-DwRaNlmGZJ9Jl', '_blank');
   };
 
   useEffect(() => {
